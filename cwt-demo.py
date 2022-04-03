@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import pywt
-import pandas as pd
 
 # Get data:
 ecg = pywt.data.ecg()  # 生成心电信号

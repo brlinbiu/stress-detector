@@ -16,6 +16,9 @@ def sgn(num):
 
 
 def cal_sigma_stsf(cd1, data_len):
+    """
+    软阈值求 sigma，lambda
+    """
     median_cd1 = np.median(cd1)
     sigma = (1.0 / 0.6745) * median_cd1
     lamda = sigma * math.sqrt(2.0 * math.log(float(data_len), math.e))
