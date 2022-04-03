@@ -36,7 +36,6 @@ def QRS_detection(signal, sample_rate, max_bpm):
             if modulus[i+1][1] > modulus[i][1]:  # Take larger modulus
                 ann = modulus[i+1][0]
             i += 1
-
         qrs.append(ann)
         i += 1
     # Pin point exact qrs peak
