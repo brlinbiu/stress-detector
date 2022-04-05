@@ -12,7 +12,7 @@ def write_to_excel(subject_no, subject_action, writer):
 
 
 total_subjects = GUDb.total_subjects
-writer = pd.ExcelWriter("data.xlsx")
+writer = pd.ExcelWriter("raw_data.xlsx")
 for i in range(total_subjects):
     for action in GUDb.experiments[0:2]:
         write_to_excel(i, action, writer)

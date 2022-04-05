@@ -4,9 +4,6 @@ import pywt
 
 
 def sgn(num):
-    """
-    sgn 函数
-    """
     if(num > 0.0):
         return 1.0
     elif(num == 0.0):
@@ -37,7 +34,7 @@ def cal_sigma_mgtsf(cd1, data_len):
 def coeffs_filtering_stsf(cdn, lamda):
     for i in range(len(cdn)):
         if (abs(cdn[i]) > lamda/np.log2(2)):
-            cdn[i] = sgn(cdn[i]) * (abs(cdn[i]) - lamda/np.log2(2))
+            cdn[i] = sgn(cdn[i]) * (abs(cdn[i]) - lamda / np.log2(2))
         else:
             cdn[i] = 0.0
 
