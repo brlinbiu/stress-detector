@@ -8,10 +8,10 @@ def create_random_number(a, b):
     return (b - a) * random.random() + a
 
 
-def create_matrix(m, n, fill=0.0):
+def create_matrix(m, n, init=0.0):
     mat = []
     for i in range(m):
-        mat.append([fill] * n)
+        mat.append([init] * n)
     return mat
 
 
@@ -80,13 +80,13 @@ class BPNN:
             self.output_cells[k] = sigmoid(total)
         return self.output_cells[:]
 
-    def back_propagate(self, case, label, learn, correct):
+    def back_propagate(self, sample, target, learn_rate, correction):
         # feed forward
-        self.predict(case)
+        self.predict(sample)
         # get output layer error
         output_deltas = [0.0] * self.output_n
         for o in range(self.output_n):
-            error = label[o] - self.output_cells[o]
+            error = target[o] - self.output_cells[o]
             output_deltas[o] = sigmoid_derivative(self.output_cells[o]) * error
         # get hidden layer error
         hidden_deltas = [0.0] * self.hidden_n
@@ -99,26 +99,27 @@ class BPNN:
         for h in range(self.hidden_n):
             for o in range(self.output_n):
                 change = output_deltas[o] * self.hidden_cells[h]
-                self.output_weights[h][o] += learn * change + \
-                    correct * self.output_correct[h][o]
+                self.output_weights[h][o] += learn_rate * change + \
+                    correction * self.output_correct[h][o]
                 self.output_correct[h][o] = change
         # update input weights
         for i in range(self.input_n):
             for h in range(self.hidden_n):
                 change = hidden_deltas[h] * self.input_cells[i]
-                self.input_weights[i][h] += learn * change + \
-                    correct * self.input_correct[i][h]
+                self.input_weights[i][h] += learn_rate * change + \
+                    correction * self.input_correct[i][h]
                 self.input_correct[i][h] = change
         # get global error
         error = 0.0
-        for o in range(len(label)):
-            error += 0.5 * (label[o] - self.output_cells[o]) ** 2
+        for o in range(len(target)):
+            error += 0.5 * (target[o] - self.output_cells[o]) ** 2
         return error
 
-    def train(self, cases, labels, limit, learn, correct):
-        for j in range(limit):
+    def train(self, samples, targets, iterations, learn_rate, correction):
+        for j in range(iterations):
             error = 0.0
-            for i in range(len(cases)):
-                label = labels[i]
-                case = cases[i]
-                error += self.back_propagate(case, label, learn, correct)
+            for i in range(len(samples)):
+                target = targets[i]
+                sample = samples[i]
+                error += self.back_propagate(sample,
+                                             target, learn_rate, correction)
