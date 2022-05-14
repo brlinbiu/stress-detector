@@ -30,32 +30,32 @@ def data_tf(img):
     return img
 
 
-# 先来准备数据
-# 使用内置函数下载 mnist 数据集，并且使用自定义的标准化函数对数据进行标准化
-# download 参数是表明数据是要从网上下载么？如果该目录下已经存在数据集，就不会再下载了。
-train_set = mnist.MNIST('./data', train=True, transform=data_tf, download=True)
-test_set = mnist.MNIST('./data', train=False, transform=data_tf, download=True)
-firstImg, firstImg_label = train_set[0]  # a为训练数据第一个的图像数据，a_label为训练数据第一个的标签
-# 训练数据数量是60000
-print(train_set)
-# 测试数据数量是60000
-print(test_set)
-# 打印出第一个图像和其标签的值
-print(firstImg.shape)
-print(firstImg_label)
+# # 先来准备数据
+# # 使用内置函数下载 mnist 数据集，并且使用自定义的标准化函数对数据进行标准化
+# # download 参数是表明数据是要从网上下载么？如果该目录下已经存在数据集，就不会再下载了。
+# train_set = mnist.MNIST('./data', train=True, transform=data_tf, download=True)
+# test_set = mnist.MNIST('./data', train=False, transform=data_tf, download=True)
+# firstImg, firstImg_label = train_set[0]  # a为训练数据第一个的图像数据，a_label为训练数据第一个的标签
+# # 训练数据数量是60000
+# print(train_set)
+# # 测试数据数量是60000
+# print(test_set)
+# # 打印出第一个图像和其标签的值
+# print(firstImg.shape)
+# print(firstImg_label)
 
-# DataLoader本质上就是一个iterable（跟python的内置类型list等一样），并利用多进程来加速batch data的处理，使用yield来使用有限的内存
-# 使用 pytorch 自带的 DataLoader 定义一个数据迭代器，也就是将数据进行排序标号，shuffle也就是打乱数据
-# DataLoader是一个高效，简洁，直观的网络输入数据结构，便于使用和扩展
-# 这种方式能加快数据计算速度，减少训练时间。
-train_data = DataLoader(train_set, batch_size=64, shuffle=True)  # 训练数据
-test_data = DataLoader(test_set, batch_size=128, shuffle=False)  # 测试数据
-# 这里展示的是一个批量处理的数据，想象成之前学习的mini-batch，每次迭代处理一个小批量的数据。
-# 训练数据是64个图像为一组数据，维度是[64, 784]
-batch, batch_label = next(iter(train_data))
-# 打印出一个批次的数图像和其标签，主要为了展示维度。
-print(batch.shape)
-print(batch_label.shape)
+# # DataLoader本质上就是一个iterable（跟python的内置类型list等一样），并利用多进程来加速batch data的处理，使用yield来使用有限的内存
+# # 使用 pytorch 自带的 DataLoader 定义一个数据迭代器，也就是将数据进行排序标号，shuffle也就是打乱数据
+# # DataLoader是一个高效，简洁，直观的网络输入数据结构，便于使用和扩展
+# # 这种方式能加快数据计算速度，减少训练时间。
+# train_data = DataLoader(train_set, batch_size=64, shuffle=True)  # 训练数据
+# test_data = DataLoader(test_set, batch_size=128, shuffle=False)  # 测试数据
+# # 这里展示的是一个批量处理的数据，想象成之前学习的mini-batch，每次迭代处理一个小批量的数据。
+# # 训练数据是64个图像为一组数据，维度是[64, 784]
+# batch, batch_label = next(iter(train_data))
+# # 打印出一个批次的数图像和其标签，主要为了展示维度。
+# print(batch.shape)
+# print(batch_label.shape)
 
 
 # Step 2:============================定义模型===================
