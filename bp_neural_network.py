@@ -57,7 +57,7 @@ class BPNN:
                 self.input_weights[i][h] = create_random_number(-0.2, 0.2)
         for h in range(self.hidden_n):
             for o in range(self.output_n):
-                self.output_weights[h][o] = create_random_number(-2.0, 2.0)
+                self.output_weights[h][o] = create_random_number(-0.2, 0.2)
         # init correction matrix
         self.input_correct = create_matrix(self.input_n, self.hidden_n)
         self.output_correct = create_matrix(self.hidden_n, self.output_n)
@@ -116,6 +116,8 @@ class BPNN:
         return error
 
     def train(self, samples, targets, iterations, learn_rate, correction):
+        loss = []
+        acc_rate = []
         for j in range(iterations):
             error = 0.0
             for i in range(len(samples)):
@@ -123,3 +125,14 @@ class BPNN:
                 sample = samples[i]
                 error += self.back_propagate(sample,
                                              target, learn_rate, correction)
+            loss.append(error)
+            predict_acount = 0
+            for k in range(len(samples)):
+
+                predicted = self.predict(samples[k])
+                max_index_predicted = predicted.index(max(predicted))
+                max_index_target = targets[k].index(max(targets[k]))
+                if(max_index_predicted == max_index_target):
+                    predict_acount += 1
+            acc_rate.append(predict_acount / len(samples))
+        return loss, acc_rate
