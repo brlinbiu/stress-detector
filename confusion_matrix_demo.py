@@ -2,13 +2,17 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import numpy as np
 
+"""
+Generate confusion matrix
+"""
+
 
 def plot_confusion_matrix(cm, savename, classes, title='Confusion Matrix'):
 
     plt.figure(figsize=(12, 8), dpi=100)
     np.set_printoptions(precision=2)
 
-    # 在混淆矩阵中每格的概率值
+    # rate number of each cell
     ind_array = np.arange(len(classes))
     x, y = np.meshgrid(ind_array, ind_array)
     for x_val, y_val in zip(x.flatten(), y.flatten()):

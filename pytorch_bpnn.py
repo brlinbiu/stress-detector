@@ -1,9 +1,10 @@
-# -*- coding: utf-8 -*
-
 """
-Created on Fri Jul 27 17:47:03 2018
-
-@author: Administrator
+MBPNN Structure use PyTorch to achieve
+7 input
+12 1st hidden layer
+10 2nd hidden layer
+8 3rd hidden layer
+2 output
 """
 import torch
 

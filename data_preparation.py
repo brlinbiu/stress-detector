@@ -4,7 +4,12 @@ from qrs_detection import QRS_detection as detect
 import numpy as np
 import pandas as pd
 
-
+"""
+Main work: get single group ECG data from excel, and denoise, detect R-wave peaks,
+then calculate HRV features.
+parameter: subject number; action
+return: features array.
+"""
 def cal_single_eigen_values(subject_no, subject_action):
     array = []
     sample_rate = GUDb.fs
@@ -24,7 +29,9 @@ def cal_single_eigen_values(subject_no, subject_action):
     array.append(hrv_class.hf)
     return array
 
-
+"""
+Main work: get HRV features of all group of all volunteers' data
+"""
 def cal_all_eigen_values():
     values = []
     for i in range(GUDb.total_subjects):
@@ -32,7 +39,9 @@ def cal_all_eigen_values():
         values.append(cal_single_eigen_values(i, '-maths'))
     return values
 
-
+"""
+Main work: pull all data from online and save in excel.
+"""
 def write_to_excel(subject_no, subject_action, writer):
     ecg_class = GUDb(subject_no, subject_action)
     arrays = np.vstack((ecg_class.cs_V2_V1, ecg_class.einthoven_I,

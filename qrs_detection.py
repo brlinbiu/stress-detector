@@ -1,7 +1,9 @@
 import numpy as np
 import pywt as pw
 
-
+"""
+Main work: locate R peak in ECG signal
+"""
 def QRS_detection(signal, sample_rate, max_bpm):
 
     # swt 4 level(according to swt_max_level function)

@@ -7,7 +7,9 @@ random.seed(1)
 def create_random_number(a, b):
     return (b - a) * random.random() + a
 
-
+"""
+Generate weight tensor
+"""
 def create_matrix(m, n, init=0.0):
     mat = []
     for i in range(m):
@@ -22,7 +24,9 @@ def sigmoid(x):
 def sigmoid_derivative(x):
     return x * (1 - x)
 
-
+"""
+SBPNN Structure including training and predicting function 
+"""
 class BPNN:
     def __init__(self):
         # init numbers of all layers
